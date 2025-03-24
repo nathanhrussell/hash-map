@@ -28,6 +28,19 @@ function createHashMap(size = 101) {
             bucket.push([key, value]);
         },
 
+        get(key) {
+            const index = hash(key);
+            const bucket = buckets[index];
+
+            for (let i = 0; i < bucket.length; i++) {
+                const [k, v] = bucket[i];
+                if (k === key) {
+                    return v;
+                }
+                }
+            return null;
+            },
+
         debug() {
             console.log(buckets);
         }
@@ -38,6 +51,7 @@ const map = createHashMap();
 
 map.set("apple", 100);
 map.set("banana", 200);
-map.set("apple", 150);
 
-map.debug();
+console.log(map.get("apple"));
+console.log(map.get("banana"))
+console.log(map.get("orange"));
