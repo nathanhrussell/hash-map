@@ -1,5 +1,6 @@
 function createHashMap(size = 101) {
     const buckets = new Array(size).fill(null).map(() => []);
+    let count = 0;
 
 
     function hash(key) {
@@ -26,6 +27,7 @@ function createHashMap(size = 101) {
             }
 
             bucket.push([key, value]);
+            count++;
         },
 
         get(key) {
@@ -61,11 +63,16 @@ function createHashMap(size = 101) {
             for (let i = 0; i < bucket.length; i++) {
                 if (bucket[i][0] === key) {
                     bucket.splice(i, 1);
+                    count--;
                     return true
                 }
             }
 
             return false;
+        },
+
+        length() {
+            return count;
         },
 
         debug() {
@@ -76,11 +83,16 @@ function createHashMap(size = 101) {
 
 const map = createHashMap();
 
-map.set("one", 1);
-map.set("two", 2);
+console.log(map.length());
 
-console.log(map.remove("two"));
-console.log(map.remove("three"));
-console.log(map.get("two"));
-console.log(map.has("two"));
+map.set("a", 1);
+map.set("b", 2);
+console.log(map.length());
+
+map.set("a", 3);        
+console.log(map.length());
+
+map.remove("b");
+console.log(map.length());
+
 
