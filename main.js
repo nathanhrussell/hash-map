@@ -54,6 +54,20 @@ function createHashMap(size = 101) {
             return false;
         },
 
+        remove(key) {
+            const index = hash(key);
+            const bucket = buckets[index];
+
+            for (let i = 0; i < bucket.length; i++) {
+                if (bucket[i][0] === key) {
+                    bucket.splice(i, 1);
+                    return true
+                }
+            }
+
+            return false;
+        },
+
         debug() {
             console.log(buckets);
         }
@@ -62,9 +76,11 @@ function createHashMap(size = 101) {
 
 const map = createHashMap();
 
-map.set("dog", "bark");
-map.set("cat", "meow");
+map.set("one", 1);
+map.set("two", 2);
 
-console.log(map.has("dog"));
-console.log(map.has("cat"));
-console.log(map.has("fox"));
+console.log(map.remove("two"));
+console.log(map.remove("three"));
+console.log(map.get("two"));
+console.log(map.has("two"));
+
