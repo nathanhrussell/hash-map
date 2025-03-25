@@ -1,5 +1,5 @@
 function createHashMap(size = 101) {
-    const buckets = new Array(size).fill(null).map(() => []);
+    let buckets = new Array(size).fill(null).map(() => []);
     let count = 0;
 
 
@@ -75,24 +75,32 @@ function createHashMap(size = 101) {
             return count;
         },
 
+        clear() {
+            buckets = new Array(size).fill(null).map(() => []);
+            count = 0;
+        },
+
         debug() {
             console.log(buckets);
-        }
+        },
+
     };
 }
 
 const map = createHashMap();
 
+map.set("x", 1);
+map.set("y", 2);
+
 console.log(map.length());
 
-map.set("a", 1);
-map.set("b", 2);
-console.log(map.length());
+map.clear();
 
-map.set("a", 3);        
 console.log(map.length());
+console.log(map.get("x"));
+console.log(map.has("y"));
 
-map.remove("b");
-console.log(map.length());
+map.debug();
+
 
 
