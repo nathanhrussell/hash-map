@@ -104,25 +104,21 @@ function createHashMap(size = 101) {
             return allValues;
           },
 
+          entries() {
+            const allEntries = [];
+          
+            for (const bucket of buckets) {
+              for (const [key, value] of bucket) {
+                allEntries.push([key, value]);
+              }
+            }
+          
+            return allEntries;
+          },
+
         debug() {
             console.log(buckets);
         },
 
     };
 }
-
-const map = createHashMap();
-
-map.set("apple", 10);
-map.set("banana", 20);
-map.set("cherry", 30);
-
-console.log(map.values());
-
-map.remove("banana");
-
-console.log(map.values());
-
-
-
-
