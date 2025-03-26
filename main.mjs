@@ -1,6 +1,32 @@
 function createHashMap(size = 101) {
     let buckets = new Array(size).fill(null).map(() => []);
     let count = 0;
+    const loadFactor = 0.75;
+
+    function hashforResize(key, newSize) {
+        let hashCode = 0;
+        const primeNumber = 31;
+
+        for (let i = 0; i < key.length; i++) {
+            hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % newSize;
+        }
+
+        return hashCode;
+    }
+
+    function resize() {
+        const newSize = buckets.length * 2;
+        const newBuckets = new Array(newSize).fill(null).map(() => []);
+
+        for (const bucket of buckets) {
+            for (const [key, value] of bucket) {
+                const index = hashforResize(key, newSize);
+                newBuckets[index].push([key, value]);
+            }
+        }
+
+        buckets = newBuckets;
+    }
 
 
     function hash(key) {
@@ -28,6 +54,10 @@ function createHashMap(size = 101) {
 
             bucket.push([key, value]);
             count++;
+
+            if (count / buckets.length > loadFactor) {
+                resize();
+            }
         },
 
         get(key) {
@@ -116,9 +146,15 @@ function createHashMap(size = 101) {
             return allEntries;
           },
 
+          load() {
+            return count / buckets.length;
+          },
+
         debug() {
             console.log(buckets);
         },
 
     };
 }
+
+export default createHashMap;
