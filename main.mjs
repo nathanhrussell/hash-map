@@ -1,4 +1,4 @@
-function createHashMap(size = 101) {
+function createHashMap(size = 16) {
     let buckets = new Array(size).fill(null).map(() => []);
     let count = 0;
     const loadFactor = 0.75;

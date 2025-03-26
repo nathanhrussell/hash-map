@@ -13,5 +13,12 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
+test.set('ball', 'violet')
+test.set('moon', 'silver')
+test.set('moon', 'red')
 
+
+
+console.log(test.entries());
+console.log(test.clear());
 console.log(test.entries());
